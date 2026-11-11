@@ -3,7 +3,7 @@
 **Status:** proposal for Samuel's review, not a committed schedule.  
 **Last updated:** 2026-10-28
 
-**Progress:** Stage 0 completed on 2026-10-28. Stage 1 (platform path) is next, beginning with F03.
+**Progress:** Stage 0 completed on 2026-10-28. Stage 1 (platform path) is next, beginning with F03. The OAuth app required by F03 was approved on 2026-11-11; authorization and webhook delivery are not yet tested.
 
 These stages describe learning and delivery order. They are not GitHub milestones yet. No deadlines or effort estimates have been approved.
 
