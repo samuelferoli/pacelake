@@ -53,6 +53,7 @@ Reported in the [API integration cookbook](https://forum.intervals.icu/t/interva
 - Selected event types: `ACTIVITY_UPLOADED`, `ACTIVITY_UPDATED`, `ACTIVITY_DELETED`, `ACTIVITY_ANALYZED` (sent after about 60 seconds), and `WELLNESS_UPDATED`. The form also lists `APP_SCOPE_CHANGED`, calendar, chat, fitness, and settings events.
 - Activity webhooks are not delivered for Strava activities.
 - Webhooks require an OAuth app, which Intervals.icu reviews before approval. A personal API key cannot receive them (F03).
+- The Pacelake OAuth app was approved by Intervals.icu (notification received 2026-11-11). It is listed under `/settings/apps` on Intervals.icu. Authorizing it for Samuel's account and receiving a real event are still untested (F03).
 - Webhook URLs must be HTTPS. An optional authorization header can be configured for each app.
 - Each POST carries a `secret` for verification and an `events` array (`athlete_id`, `type`, `timestamp`, type-specific body).
 - A non-2xx response causes a retry with backoff, and duplicates can occur.
