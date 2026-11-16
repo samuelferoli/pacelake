@@ -1,7 +1,7 @@
 # Decisions and open questions
 
 **Owner:** Samuel Fernandes  
-**Last updated:** 2026-10-28
+**Last updated:** 2026-11-16
 
 An accepted direction is not evidence that an integration has passed. Do not mark a candidate accepted merely because its documentation was merged.
 
@@ -27,6 +27,11 @@ Samuel reviewed and confirmed D01-D07 on 2026-10-28 (Phase 0).
 | D14 | Processing engine | Accepted | PySpark and Delta Lake for bronze, silver, and gold. Samuel prefers Spark over lighter engines (for example DuckDB, Polars, or delta-rs) as a learning goal. Both libraries are open source with no licence fee; only the compute that runs them is billed. |
 | D15 | Execution environment | Proposed | An Azure Function receives and verifies webhooks and writes raw payloads to ADLS. PySpark runs in local mode in an on-demand Azure Container Apps job, which also publishes to PostgreSQL. Event Grid on blob creation is an alternative job trigger. Untested. Managed Spark platforms (Databricks, Synapse, Fabric) are not selected; their cost against D16 has not been evaluated. |
 | D16 | Spending ceiling | Accepted | Up to 20 BRL per month, stated by Samuel on 2026-10-28. A hard cap or equivalent control must be in place before enabling paid resources (see F08). |
+| D17 | Raw landing write strategy | Accepted | Append-only: every webhook delivery is kept, including duplicates, so the raw data can be re-checked and reprocessed if a deduplication key proves wrong. Deduplication happens in silver (stated by Samuel on 2026-11-16). |
+| D18 | Raw file granularity | Accepted | One file per delivery, not per event. Events in a delivery are separated in silver, which also keeps the endpoint minimal and costs lower (stated by Samuel on 2026-11-16). Folders by received time are preferred; the exact path layout is open. |
+| D19 | Webhook secret storage | Accepted | The webhook secret is kept in Azure Function app settings (stated by Samuel on 2026-11-16). Key Vault was the alternative. The secret is not committed, logged, or written to the lake. |
+
+On 2026-11-16 Samuel chose to proceed with ADLS Gen2 (D09), expecting very low cost. Current prices are not yet checked and no spending cap exists; both remain F08. Dropping the `secret` field before persisting a payload, constant-time secret comparison, and the response to a failed storage write are proposals under F03, not decisions.
 
 ## Open questions
 
